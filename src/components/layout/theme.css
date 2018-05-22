@@ -433,6 +433,7 @@ footer p {
 
 .top-navbar .dropdown-menu {
     min-width: 230px;
+    top:  98%;
     border-radius: 0 0 4px 4px;
 }
 

@@ -5,11 +5,7 @@ import App from '@cpts/App';
 import registerServiceWorker from './registerServiceWorker';
 import { AppContainer } from 'react-hot-loader';
 import {BrowserRouter, Switch, Route, Link, Redirect} from 'react-router-dom';
-import Layout from '@cpts/layout/index';
-
-const Hot = () => (
-  <div>HOT</div>
-  );
+import Container from '@cpts/layout/container';
 
 const render = (Component) => {
   ReactDOM.render(
@@ -17,7 +13,7 @@ const render = (Component) => {
       <Component>
         <BrowserRouter>
           <Switch>
-            <Route path="/" component={Layout} />
+            <Route path="/" component={Container} />
           </Switch>
         </BrowserRouter>
       </Component>

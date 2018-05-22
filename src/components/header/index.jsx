@@ -14,12 +14,15 @@ class TopNav extends React.Component{
                 <i className="fa fa-caret-down"></i>
               </a>
               <ul className="dropdown-menu dropdown-user">
-                <li><a href="#"><i className="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href=""><i className="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
-                <li><a href="#"><i className="fa fa-gear fa-fw"></i> Settings</a>
+                <li><a href=""><i className="fa fa-gear fa-fw"></i> Settings</a>
                 </li>
                 <li className="divider"></li>
-                <li><a href="#"><i className="fa fa-sign-out fa-fw"></i> Logout</a>
+                <li>
+                <a href="javascript:;" onClick={() => this.onLogout()}>
+                  <i className="fa fa-sign-out fa-fw"></i>退出登录
+                </a>
                 </li>
               </ul>
             </li>
@@ -27,6 +30,8 @@ class TopNav extends React.Component{
       </nav>
     );
   }
+  // 退出登录
+  onLogout() {}
 }
 
 export default TopNav;
