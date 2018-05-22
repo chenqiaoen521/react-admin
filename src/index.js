@@ -4,11 +4,23 @@ import './index.css';
 import App from '@cpts/App';
 import registerServiceWorker from './registerServiceWorker';
 import { AppContainer } from 'react-hot-loader';
+import {BrowserRouter, Switch, Route, Link, Redirect} from 'react-router-dom';
+import Layout from '@cpts/layout/index';
+
+const Hot = () => (
+  <div>HOT</div>
+  );
 
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component/>
+      <Component>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" component={Layout} />
+          </Switch>
+        </BrowserRouter>
+      </Component>
     </AppContainer>,
     document.getElementById('root')
   );
