@@ -1,14 +1,13 @@
 import React from 'react';
-import pageTitle from '@base/pageTitle';
-
+import PageTitle from '@base/pageTitle';
 class Home extends React.Component {
   render() {
     return (
       <div id="page-wrapper">
         <div id="page-inner">
-          <page-title title="首页">
+          <PageTitle title="首页">
             <button className="btn-warning">dasd</button>
-          </page-title>
+          </PageTitle>
         </div>
       </div>
     );
