@@ -1,13 +1,14 @@
 import React from 'react';
 import './index.css';
-import {login} from '@api/login';
-import {BASE_URL} from '@common/config';
+import {login, userList} from '@api/user';
+import {getUrlParam, errorTips} from '@common/util';
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      redirect: getUrlParam('redirect') || '/'
     }
   }
   onInputChange(e) {
@@ -17,15 +18,16 @@ class Login extends React.Component {
     });
   }
   onSubmit(e) {
-    const url = BASE_URL + '/manage/user/login.do';
+    const url = '/manage/user/login.do';
     const {username, password} = this.state;
     login(url, {
       username,
       password
     }).then(res => {
-      console.log(res)
-    })
-
+      this.props.history.push(this.state.redirect)
+    }, (errMsg) => {
+      errorTips(errMsg);
+    });
   }
 
   render() {

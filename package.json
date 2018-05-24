@@ -51,6 +51,13 @@
       "react-app"
     ]
   },
+  "proxy": {
+    "/manage": {
+      "target": "http://admintest.happymmall.com",
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",

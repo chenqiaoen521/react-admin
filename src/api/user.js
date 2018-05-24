@@ -1,17 +1,31 @@
 import {post} from './base';
+import {get} from './base';
+let config = {
+  headers: {
+      'Content-Type': 'multipart/form-data'
+  }
+}
 export function login (url, params) {
 	return new Promise((resolve, reject) => {
     post(url, params).then(res => {
-      console.log(res);
       if(0 === res.status) {
         typeof resolve === 'function' && resolve(res);
       } else if (10 === res.status) {
-        // _doLogin();
+        _doLogin();
       } else {
-        reject(res.msg);
+        reject(res.data.msg);
       }
     }).catch(err => {
-      console.log(err);
+      reject(err.statusText);
+    })
+  })
+}
+
+export function userList (url, params) {
+  return new Promise((resolve, reject) => {
+    get(url, params).then(res => {
+      console.log(res);
+    }).catch(err => {
       reject(err.statusText);
     })
   })
