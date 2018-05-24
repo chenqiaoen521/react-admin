@@ -1,5 +1,7 @@
 import React from 'react';
 import './index.css';
+import {login} from '@api/login';
+import {BASE_URL} from '@common/config';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -13,8 +15,19 @@ class Login extends React.Component {
     this.setState({
       [name]: e.target.value
     });
-    console.log(this.state)
   }
+  onSubmit(e) {
+    const url = BASE_URL + '/manage/user/login.do';
+    const {username, password} = this.state;
+    login(url, {
+      username,
+      password
+    }).then(res => {
+      console.log(res)
+    })
+
+  }
+
   render() {
     return (
       <div className="container">
@@ -51,7 +64,7 @@ class Login extends React.Component {
                     />
                   </div>
                   <div className="form-group">
-                    <button type="submit" className="btn btn-primary btn-lg btn-block">登录</button>
+                    <button onClick={e => this.onSubmit(e)} type="button" className="btn btn-primary btn-lg btn-block">登录</button>
                   </div>
                   <div className="form-group clearfix">
                     <a href="" className="pull-left">注册</a>
