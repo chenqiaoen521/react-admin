@@ -18,7 +18,7 @@ export function login (url, params) {
 
 export function logout () {
   const url = '/user/logout.do';
-  post(url);
+  return post(url);
 }
 function _doLogin () {
   window.location.href = '/login?redirect=' + encodeURIComponent(window.location.pathname);

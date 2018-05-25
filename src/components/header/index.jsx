@@ -1,5 +1,11 @@
 import React from 'react';
+import storage from 'good-storage';
+import {logout} from '@api/user';
+import {errorTips} from '@common/util';
 class TopNav extends React.Component{
+  constructor(props) {
+    super(props)
+  }
   render() {
     return (
       <nav className="navbar navbar-default top-navbar" role="navigation">
@@ -10,7 +16,7 @@ class TopNav extends React.Component{
             <li className="dropdown">
               <a className="dropdown-toggle" href="javascript:;" >
                 <i className="fa fa-user fa-fw"></i>
-                  <span>欢迎，admin回来！</span>
+                  <span>欢迎，{storage.get('userInfo') && storage.get('userInfo').username}回来！</span>
                 <i className="fa fa-caret-down"></i>
               </a>
               <ul className="dropdown-menu dropdown-user">
@@ -31,7 +37,14 @@ class TopNav extends React.Component{
     );
   }
   // 退出登录
-  onLogout() {}
+  onLogout() {
+    logout().then(res => {
+      storage.remove('userInfo');
+      this.props.history.push('/login');
+    }, errMsg => {
+      errorTips(errMsg)
+    })
+  }
 }
 
 export default TopNav;

@@ -13,7 +13,7 @@ class SideNav extends React.Component{
                     <a href="#"><i className="fa fa-sitemap"></i>商品<span className="fa arrow"></span></a>
                     <ul className="nav nav-second-level collapse in">
                       <li>
-                        <NavLink activeClassName="active-menu" to="/product">商品管理</NavLink>
+                        <NavLink activeClassName="active-menu" to="/product-list">商品管理</NavLink>
                       </li>
                       <li>
                         <NavLink activeClassName="active-menu" to="/product-category">品类管理</NavLink>

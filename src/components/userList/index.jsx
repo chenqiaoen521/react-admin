@@ -108,6 +108,8 @@ export default class UserList extends React.Component{
             firstLoading: false
           })
         })
+      } else if (res.data.status === 10) {
+        this.props.history.push('/login');
       }else {
         errorTips(res.data.msg)
       }

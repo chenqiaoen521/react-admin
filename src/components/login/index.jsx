@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 import {login, userList} from '@api/user';
 import {getUrlParam, errorTips} from '@common/util';
+import storage from 'good-storage';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -24,8 +25,9 @@ class Login extends React.Component {
     formdata.append('username', username);
     formdata.append('password', password);
     login(url, formdata).then(res => {
-      //this.props.history.push(this.state.redirect)
-      this.props.history.push('/');
+      storage.remove('userInfo') 
+      storage.set('userInfo', res.data.data) 
+      this.props.history.push(this.state.redirect)
     }, (errMsg) => {
       errorTips(errMsg);
     });
@@ -38,7 +40,7 @@ class Login extends React.Component {
           <div className="col-md-4 col-md-offset-4">
             <div className="panel panel-default login-panel">
               <div className="panel-heading">
-                <h1 className="panel-title">
+                <h1 className="panel-title login-title">
                   欢迎登录 - 管理系统
                 </h1>
               </div>
