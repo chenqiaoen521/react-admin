@@ -18,13 +18,14 @@ class Login extends React.Component {
     });
   }
   onSubmit(e) {
-    const url = '/manage/user/login.do';
-    const {username, password} = this.state;
-    login(url, {
-      username,
-      password
-    }).then(res => {
-      this.props.history.push(this.state.redirect)
+    const url = '/manage/user/login.do',
+                {username, password} = this.state,
+                formdata = new FormData();
+    formdata.append('username', username);
+    formdata.append('password', password);
+    login(url, formdata).then(res => {
+      //this.props.history.push(this.state.redirect)
+      this.props.history.push('/');
     }, (errMsg) => {
       errorTips(errMsg);
     });

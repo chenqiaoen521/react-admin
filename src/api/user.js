@@ -1,16 +1,11 @@
-import {post} from './base';
-import {get} from './base';
-let config = {
-  headers: {
-      'Content-Type': 'multipart/form-data'
-  }
-}
+import {post, get} from './base';
+import {config} from '@common/config'
 export function login (url, params) {
 	return new Promise((resolve, reject) => {
-    post(url, params).then(res => {
-      if(0 === res.status) {
+    post(url, params, config).then(res => {
+      if(0 === res.data.status) {
         typeof resolve === 'function' && resolve(res);
-      } else if (10 === res.status) {
+      } else if (10 === res.data.status) {
         _doLogin();
       } else {
         reject(res.data.msg);
@@ -21,16 +16,10 @@ export function login (url, params) {
   })
 }
 
-export function userList (url, params) {
-  return new Promise((resolve, reject) => {
-    get(url, params).then(res => {
-      console.log(res);
-    }).catch(err => {
-      reject(err.statusText);
-    })
-  })
+export function logout () {
+  const url = '/user/logout.do';
+  post(url);
 }
-
 function _doLogin () {
   window.location.href = '/login?redirect=' + encodeURIComponent(window.location.pathname);
 }

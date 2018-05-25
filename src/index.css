@@ -8,3 +8,6 @@ html,body{
 	height: 100%;
 	background: #f3f3f3;
 }
+#root {
+	height: 100%;
+}
