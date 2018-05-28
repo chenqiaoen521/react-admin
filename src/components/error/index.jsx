@@ -1,6 +1,8 @@
 import React from 'react';
 import PageTitle from '@base/pageTitle';
 import {Link} from 'react-router-dom';
+import {observer, inject} from 'mobx-react';
+@inject('appState') @observer
 class ErrorPage extends React.Component{
   render() {
     return (

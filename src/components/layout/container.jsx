@@ -6,7 +6,7 @@ import Home from '@cpts/home/index';
 import UserList from '@cpts/userList/index';
 import Login from '@cpts/login/index';
 import ErrorPage from '@cpts/error/index';
-import ProductList from '@cpts/product/productList';
+import ProductRouter from '@cpts/product/route';
 import storage from 'good-storage';
 class Container extends React.Component{
   render() {
@@ -19,9 +19,9 @@ class Container extends React.Component{
               <Layout {...props}>
                 <Switch>
                   <Route path="/home" component={Home} />
+                  <Route path="/product" component={ProductRouter} />
                   <Redirect exact from="/" to="/home" />
                   <Route path="/user" component={UserList} />
-                  <Route path="/product-list" component={ProductList} />
                   <Route component={ErrorPage}/>
                 </Switch>
               </Layout>

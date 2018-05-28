@@ -6,17 +6,21 @@ import registerServiceWorker from './registerServiceWorker';
 import { AppContainer } from 'react-hot-loader';
 import {BrowserRouter, Switch, Route, Link, Redirect} from 'react-router-dom';
 import Container from '@cpts/layout/container';
+import appState from '@store/app';
+import {Provider} from 'mobx-react';
 
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" component={Container} />
-          </Switch>
-        </BrowserRouter>
-      </Component>
+      <Provider appState={appState}>
+        <Component>
+          <BrowserRouter>
+            <Switch>
+              <Route path="/" component={Container} />
+            </Switch>
+          </BrowserRouter>
+        </Component>
+      </Provider>
     </AppContainer>,
     document.getElementById('root')
   );
