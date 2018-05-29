@@ -4,16 +4,28 @@ import {Link} from 'react-router-dom';
 import Pagination from 'rc-pagination';
 import {get} from '@api/base';
 import 'rc-pagination/assets/index.css';
-import {errorTips} from '@common/util';
+import {errorTips, successTips} from '@common/util';
 import TableList from '@base/tableList';
+import Search from '@base/search';
+import './index.css';
 const PAGE_SIZE = 15;
 class ProductList extends React.Component{
+
   render() {
+    const tableT = [{name: '商品ID', wid: '10%'},{name: '商品信息', wid: '25%'},{name: '价格', wid: '10%'},{name: '状态', wid: '10%'},{name: '操作', wid: '15%'}];
     return (
       <div id="page-wrapper">
         <div id="page-inner">
-          <PageTitle title="商品管理"></PageTitle>
-          <TableList renderBody={this.renderBody} tableHeads={['商品ID','商品信息','价格','状态','操作']}>
+          <PageTitle prepend={true} title="商品管理">
+            <div className="page-header-right">
+              <Link to="/product/update" className="btn btn-primary">
+                <i className="fa fa-plus"></i>
+                <span>添加商品</span>
+              </Link>
+            </div>
+          </PageTitle>
+          <Search searchGoods={this.searchGoods}/>
+          <TableList renderBody={this.renderBody} tableHeads={tableT}>
           </TableList>
           <Pagination 
             current={this.state.current}
@@ -34,19 +46,31 @@ class ProductList extends React.Component{
       list: []
     }
     this.renderBody = this.renderBody.bind(this);
+    this.searchGoods = this.searchGoods.bind(this);
   }
+
   onSetProductStatus (id, status) {
     let newStatus = status === 1 ? 2: 1;
     if(window.confirm('确定要执行操作吗？')) {
       status = newStatus;
-      this.state.list.forEach(item => {
-        if (item.id === id) {
-          item.status = newStatus
-        }
-      })
-      this.setState({
-        list: this.state.list
-      })
+      
+      this._set_sale_status(id, newStatus).then(res => {
+        console.log(res)
+        if(res.data.status === 0) {
+          successTips(res.data.data)
+          this.state.list.forEach(item => {
+            if (item.id === id) {
+              item.status = newStatus
+            }
+          })
+          this.setState({
+            list: this.state.list
+          })
+        } else if (res.data.status === 1)
+        errorTips(res.data.data)
+      }, err => {
+        errorTips(err)
+      });
     }
   }
   renderBody() {
@@ -58,12 +82,12 @@ class ProductList extends React.Component{
         <td>{item.subtitle}</td>
         <td>{item.price}</td>
         <td>
-          <span>{item.status === 1 ? '在售' : '已下架'}</span>
-          <button onClick={ () => {this.onSetProductStatus(item.id, item.status)}}>{item.status !== 1 ? '在售' : '已下架'}</button>
+          <div>{item.status === 1 ? '在售' : '已下架'}</div>
+          <button className="btn btn-xs btn-warning" onClick={ () => {this.onSetProductStatus(item.id, item.status)}}>{item.status !== 1 ? '在售' : '已下架'}</button>
         </td>
         <td>
-          <Link to={`/product/detail/${item.id}`}>查看详情</Link><br />
-          <Link to={`/product/update/${item.id}`}>编辑</Link>
+          <Link className="opear" to={`/product/detail/${item.id}`}>查看详情</Link><br />
+          <Link className="opear" to={`/product/update/${item.id}`}>编辑</Link>
         </td>
       </tr>)
       });
@@ -76,11 +100,12 @@ class ProductList extends React.Component{
       pageSize: PAGE_SIZE,
       pageNum: 1
     }
+    const url = '/manage/product/list.do';
+    this.url = url;
     this._getData(params)
   }
   _getData(params) {
-    const url = '/manage/product/list.do';
-    get(url, {params}).then(res => {
+    get(this.url, {params}).then(res => {
       if (res.data.status === 0) {
         this.setState({
           total: res.data.data.pages,
@@ -94,6 +119,30 @@ class ProductList extends React.Component{
         errorTips(res.data.msg)
       }
     })
+  }
+  searchGoods(type, name) {
+    const url = '/manage/product/search.do';
+    this.url = url;
+    const params = {
+      pageNum: 1,
+      pageSize: this.state.pageSize
+    };
+    if (type == 1) {
+      Object.assign(params, {productId: name})
+    } else if (type == 2) {
+      Object.assign(params, {productName: name})
+    } else {
+      errorTips('类型错误！~')
+    }
+    this._getData(params)
+  }
+  async _set_sale_status(id, status) {
+    const url = '/manage/product/set_sale_status.do';
+    let params = {
+      productId: id,
+      status
+    }
+    return await get(url, {params});
   }
   onShowSizeChange() {
 

@@ -14,7 +14,9 @@ export default class TableList extends React.Component {
   }
 
   render() {
-    let tableHeader = this.props.tableHeads.map((item, i) =><th key={i}>{item}</th>);
+    let tableHeader = this.props.tableHeads.map((item, i) =><th key={i}>{item.name}</th>);
+    let colWidth = this.props.tableHeads.map((item, i) =><col key={i + 'jk'} width={item.wid} />);
+    
     let listError =(
         <tr>
           <td style={{textAlign:'center'}} colSpan={this.props.tableHeads.length}>
@@ -28,6 +30,7 @@ export default class TableList extends React.Component {
       <div className="row">
         <div className="table-responsive">
           <table className="table table-striped table-bordered table-hover dataTable no-footer">
+            {colWidth}
             <thead>
               <tr>
                 {tableHeader}

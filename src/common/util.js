@@ -9,3 +9,8 @@ export function getUrlParam(name){
 export function errorTips(errMsg) {
 	alert(errMsg)
 }
+
+// 成功提示
+export function successTips(msg) {
+	alert(msg)
+}
