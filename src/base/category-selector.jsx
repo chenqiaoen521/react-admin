@@ -29,15 +29,15 @@ export default class CategorySelector extends React.Component {
   render() {
     return (
       <div className="form-group clearfix">
-        <label className="control-label col-md-1 my-label">所属分类</label>
-        <div className="col-md-3">
+        <label className="control-label col-md-1 col-xs-2 my-label">所属分类</label>
+        <div className="col-md-3 col-xs-3">
           <select name="" onChange={this._selectCategory} id="" className="form-control">
             <option value="">请选择一级分类</option>
             {this.renderCagegory(this.state.firstCategoryList)}
           </select>
         </div>
         {
-          this.state.secondCategoryList.length > 0 ? (<div className="col-md-3">
+          this.state.secondCategoryList.length > 0 ? (<div className="col-md-3 col-xs-3">
             <select name="" id="" className="form-control">
               <option value="">请选择二级分类</option>
               {this.renderCagegory(this.state.secondCategoryList)}

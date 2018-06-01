@@ -1,10 +1,11 @@
 import React from 'react';
-const FileUpload = require('react-fileupload');
-export default class FileUpload extends React.Component {
+import FileUpload from './file-uploader';
+export default class UploadFile extends React.Component {
   render(){
     const options={
-      baseUrl:'/manage/product/upload.do',
+      baseUrl:'http://admintest.happymmall.com/manage/product/upload.do',
       fileFieldName: 'upload_file',
+      chooseAndUpload: true,
       dataType: 'json',
       uploadSuccess: res => {
         console.log(res);
@@ -15,9 +16,8 @@ export default class FileUpload extends React.Component {
     }
     return (
       <FileUpload options={options}>
-        <button ref="chooseBtn">choose</button>
-        <button ref="uploadBtn">upload</button>
+        <button className="btn btn-warning" ref="chooseAndUpload">请选择图片</button>
       </FileUpload>
-    )         
+    )
   }
 }

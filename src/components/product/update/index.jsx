@@ -1,7 +1,7 @@
 import React from 'react';
 import PageTitle from '@base/pageTitle';
 import CategorySelector from '@base/category-selector';
-import FileUpload from '@base/file-upload';
+import UploadFile from '@base/file-upload'
 import {get} from '@api/base';
 import {errorTips} from '@common/util';
 
@@ -84,7 +84,7 @@ export default class UpdateGoods extends React.Component {
             <div className="form-group clearfix">
               <label className="control-label col-md-1 my-label">商品图片</label>
               <div className="col-md-6">
-                <FileUpload></FileUpload>
+                <UploadFile></UploadFile>
               </div>
             </div>
             <div className="form-group clearfix">
