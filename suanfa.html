@@ -63,8 +63,55 @@
     f.apply(obj, arguments)
     return f;
   }
+
+  function select (arr) {
+    var len = arr.length;
+    var MaxIndex;
+    for (var i=0; i< len; i++) {
+      MaxIndex = i;
+      for (var j=i+1; j< len; j++) {
+        if (arr[MaxIndex] < arr[j]) {
+          MaxIndex = j;
+        }
+      }
+      var temp = arr[i]
+      arr[i] = arr[MaxIndex]
+      arr[MaxIndex] = temp
+    }
+    return arr;
+  }
 	</script>
+  <style>
+  *{padding:0;margin:0;}
+  html,body{height: 100%;}
+    .test{
+      line-height: 50px;
+      text-align: center;
+      background-color: lightblue;
+    }  
+    .parent{
+      height: 100%;
+      font-size: 0;
+      text-align: center;
+    }
+    .child{
+      display: inline-block;
+      font-size: 20px;
+      vertical-align: middle;
+    }
+    .childSbling{
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+  </style>
 </body>
+<div class="test">测试文字</div>
+
+<div class="parent" style="background-color: lightgray;">
+  <div class="child" style="background-color: lightblue;">我是比较长的比较长的多行文字</div>
+  <i class="childSbling"></i> 
+</div> 
 </html>
 
 
