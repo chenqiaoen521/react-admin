@@ -55,7 +55,6 @@ class ProductList extends React.Component{
       status = newStatus;
       
       this._set_sale_status(id, newStatus).then(res => {
-        console.log(res)
         if(res.data.status === 0) {
           successTips(res.data.data)
           this.state.list.forEach(item => {

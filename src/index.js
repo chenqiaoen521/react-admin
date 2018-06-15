@@ -6,13 +6,33 @@ import registerServiceWorker from './registerServiceWorker';
 import { AppContainer } from 'react-hot-loader';
 import {BrowserRouter, Switch, Route, Link, Redirect} from 'react-router-dom';
 import Container from '@cpts/layout/container';
-import appState from '@store/app';
-import {Provider} from 'mobx-react';
+//import appState from '@store/app';
+//import {Provider} from 'mobx-react';
+import {Provider} from 'react-redux';
+import store from '@store/index';
+import axios from 'axios';
 
+axios.interceptors.request.use(
+  config => {
+    config.headers.Authorization = 'zhangsan';
+    return config;
+  },
+  err => {
+    return Promise.reject(err);
+  });
+axios.interceptors.response.use(
+    response => {
+      console.log('response='+response)
+      return response;
+    },
+    error => {
+      console.log(error);
+    return Promise.reject(error) 
+});
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Provider appState={appState}>
+      <Provider store={store}>
         <Component>
           <BrowserRouter>
             <Switch>
