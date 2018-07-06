@@ -94,6 +94,7 @@ module.exports = {
       '@api': path.resolve(__dirname, '../src/api'),
       '@common': path.resolve(__dirname, '../src/common'),
       '@store': path.resolve(__dirname, '../src/store'),
+      '@router': path.resolve(__dirname, '../src/router'),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
