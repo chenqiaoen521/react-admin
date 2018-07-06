@@ -16,7 +16,7 @@ class Container extends React.Component{
         <Route path="/" render={props => {
           if (storage.get('userInfo')) {
             return (
-              <Layout {...props}>
+              <Layout {...this.props}>
                 <Switch>
                   <Route path="/home" component={Home} />
                   <Route path="/product" component={ProductRouter} />
